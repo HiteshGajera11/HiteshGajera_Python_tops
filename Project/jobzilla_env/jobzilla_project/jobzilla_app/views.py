@@ -74,7 +74,7 @@ def login(request):
             elif uid.role == "jobprovider" and uid.password == password:
                 print("jobprovider")
                 jpid = Jobprovider.objects.get(user_id=uid)
-                # js_details = Jobskeer_details.objects.get(jobseeker_id=jsid)
+                js_details = Jobskeer_details.objects.get(jobseeker_id=jsid)
                 if jpid:                
                     print(jpid.firstname)
                     print(jpid.lastname)
@@ -83,7 +83,7 @@ def login(request):
 
                         "uid" : uid,
                         "jpid" : jpid,
-                        # "js_details" : js_details,
+                        "js_details" : js_details,
 
                     }
                     return render(request,"jobzilla_app/jp_index.html",context)
@@ -95,8 +95,8 @@ def c_register(request):
         role = request.POST['role']
         if role == "jobseeker":
             email =  request.POST['email']
-            mylist = ["dsvvsdvs","sdfsdfsdfc","DSdsffdf","dsvcdscfdcc"]
-            mypass = email[ 3:6 ] + choice(mylist)
+           # mylist = ["dsvvsdvs","sdfsdfsdfc","DSdsffdf","dsvcdscfdcc"]
+           # mypass = email[ 3:6 ] + choice(mylist)
             uid =User.objects.create(email=email,
                                      password= mypass,
                                      role = role 
@@ -108,7 +108,7 @@ def c_register(request):
                                             contact_no = request.POST['contect_no'],
                                             gender= request.POST['gender'])
             Jsid_details =  Jobskeer_details.objects.create(user_id= uid , jobseeker_id= jsid)
-            send_mail("AUTENTICATION", "Your one time password is :-"+ mypass,"dholakiyaharsh789@gmail.com", [email] )
+            #send_mail("AUTENTICATION", "Your one time password is :-"+ mypass,"hiteshbgajera123@gmail.com", [email] )
             context = {
                 'smsg' : "Successfully account created"
             }
@@ -130,7 +130,7 @@ def c_register(request):
                                               address = request.POST['address'],
                                               contact_no = request.POST['contact_no'],
                                            )
-            send_mail("AUTENTICATION", "Your one time password is :-"+ mypass,"dholakiyaharsh789@gmail.com", [email] )
+            send_mail("AUTENTICATION", "Your one time password is :-"+ mypass,"hiteshbgajera123@gmail.com", [email] )
             context = {
                 'smsg' : "Successfully account created"
             }
@@ -219,7 +219,7 @@ def change_profile_jp(request):
         uid  = User.objects.get(email =  request.session['email'])
         if uid.role == "jobprovider" :
             jpid = Jobprovider.objects.get(user_id=uid)
-            #js_details = Jobskeer_details.objects.get(jobseeker_id=jsid)
+            js_details = Jobskeer_details.objects.get(jobseeker_id=jsid)
         if request.POST:
             jpid.company_name = request.POST['company_name']
            
@@ -233,7 +233,7 @@ def change_profile_jp(request):
 
                         "uid" : uid,
                         "jpid" : jpid,
-                      #  "js_details" : js_details,
+                        "js_details" : js_details,
                     }
             return render(request,"jobzilla_app/profile-edit-jp.html",context)
 
@@ -260,7 +260,7 @@ def change_account_jp(request):
         uid  = User.objects.get(email =  request.session['email'])
         if uid.role == "jobprovider" :
             jpid = Jobprovider.objects.get(user_id=uid)
-            #js_details = Jobskeer_details.objects.get(jobseeker_id=jsid)
+            js_details = Jobskeer_details.objects.get(jobseeker_id=jsid)
             if request.POST:
                 jpid.country= request.POST['country']
                 jpid.linked_in =request.POST['linkedin']
@@ -270,7 +270,7 @@ def change_account_jp(request):
                 context={
                             "uid" : uid,
                             "jpid" : jpid,
-                            #"js_details" : js_details,
+                            "js_details" : js_details,
                     }
                
                 return render(request,"jobzilla_app/profile-edit-jp.html",context)    
@@ -361,7 +361,7 @@ def forgot_password(request):
             uid = User.objects.get(email = email)
             uid.otp = otp
             uid.save()
-            send_mail("Forgot password","Your otp is "+str(otp),"dholakiyaharsh789@gmail.com",[email])
+            send_mail("Forgot password","Your otp is "+str(otp),"hiteshbgajera123@gmail.com",[email])
             context = {
                 'email' : email
             }
