@@ -5,6 +5,6 @@ from .models import *
 admin.site.register(User)
 admin.site.register(Jobseeker)
 admin.site.register(Jobprovider)
-admin.site.register(Jobskeer_details)
+admin.site.register(Jobseeker_details)
 admin.site.register(Jobpost)
 admin.site.register(Jobapply)

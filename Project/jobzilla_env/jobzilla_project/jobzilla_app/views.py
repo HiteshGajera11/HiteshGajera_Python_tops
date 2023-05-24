@@ -19,7 +19,7 @@ def home(request):
         uid  = User.objects.get(email =  request.session['email'])
         if uid.role == "jobseeker" :
             jsid = Jobseeker.objects.get(user_id=uid)
-            js_details = Jobskeer_details.objects.get(jobseeker_id=jsid)
+            js_details = Jobseeker_details.objects.get(jobseeker_id=jsid)
             jall = Jobpost.objects.all()
             apall = Jobapply.objects.all()
             context={
@@ -58,7 +58,7 @@ def login(request):
             if uid.role =="jobseeker" and uid.password == password:
                 print("jobseeker")
                 jsid = Jobseeker.objects.get(user_id=uid)
-                js_details = Jobskeer_details.objects.get(jobseeker_id=jsid)
+                js_details = Jobseeker_details.objects.get(jobseeker_id=jsid)
                 if jsid:                
                     print(jsid.firstname)
                     print(jsid.lastname)
@@ -74,7 +74,7 @@ def login(request):
             elif uid.role == "jobprovider" and uid.password == password:
                 print("jobprovider")
                 jpid = Jobprovider.objects.get(user_id=uid)
-                js_details = Jobskeer_details.objects.get(jobseeker_id=jsid)
+                js_details = Jobseeker_details.objects.get(jobseeker_id=jsid)
                 if jpid:                
                     print(jpid.firstname)
                     print(jpid.lastname)
@@ -95,10 +95,10 @@ def c_register(request):
         role = request.POST['role']
         if role == "jobseeker":
             email =  request.POST['email']
-           # mylist = ["dsvvsdvs","sdfsdfsdfc","DSdsffdf","dsvcdscfdcc"]
-           # mypass = email[ 3:6 ] + choice(mylist)
+            #mylist = ["dsvvsdvs","sdfsdfsdfc","DSdsffdf","dsvcdscfdcc"]
+            #mypass = email[ 3:6 ] + choice(mylist)
             uid =User.objects.create(email=email,
-                                     password= mypass,
+                                     password= "12345",
                                      role = role 
                                     )
             jsid = Jobseeker.objects.create(user_id = uid,
@@ -107,7 +107,7 @@ def c_register(request):
                                             city = request.POST['city'],
                                             contact_no = request.POST['contect_no'],
                                             gender= request.POST['gender'])
-            Jsid_details =  Jobskeer_details.objects.create(user_id= uid , jobseeker_id= jsid)
+            jsid =  Jobseeker_details.objects.create(user_id= uid , jobseeker_id= jsid)
             #send_mail("AUTENTICATION", "Your one time password is :-"+ mypass,"hiteshbgajera123@gmail.com", [email] )
             context = {
                 'smsg' : "Successfully account created"
@@ -155,7 +155,7 @@ def user_profile(request):
         uid  = User.objects.get(email =  request.session['email'])
         if uid.role == "jobseeker" :
             jsid = Jobseeker.objects.get(user_id=uid)
-            js_details = Jobskeer_details.objects.get(jobseeker_id=jsid)
+            js_details = Jobseeker_details.objects.get(jobseeker_id=jsid)
             context={
 
                     "uid" : uid,
@@ -195,7 +195,7 @@ def change_profile_js(request):
         uid  = User.objects.get(email =  request.session['email'])
         if uid.role == "jobseeker" :
             jsid = Jobseeker.objects.get(user_id=uid)
-            js_details = Jobskeer_details.objects.get(jobseeker_id=jsid)
+            js_details = Jobseeker_details.objects.get(jobseeker_id=jsid)
         if request.POST:
             jsid.firstname = request.POST['firstname']
             jsid.lastname = request.POST['lastname']
@@ -219,7 +219,7 @@ def change_profile_jp(request):
         uid  = User.objects.get(email =  request.session['email'])
         if uid.role == "jobprovider" :
             jpid = Jobprovider.objects.get(user_id=uid)
-            js_details = Jobskeer_details.objects.get(jobseeker_id=jsid)
+            js_details = Jobseeker_details.objects.get(jobseeker_id=jsid)
         if request.POST:
             jpid.company_name = request.POST['company_name']
            
@@ -242,7 +242,7 @@ def change_account_js(request):
         uid  = User.objects.get(email =  request.session['email'])
         if uid.role == "jobseeker" :
             jsid = Jobseeker.objects.get(user_id=uid)
-            js_details = Jobskeer_details.objects.get(jobseeker_id=jsid)
+            js_details = Jobseeker_details.objects.get(jobseeker_id=jsid)
             if request.POST:
                 jsid.git_url = request.POST['githuburl']
                 jsid.linked_in =request.POST['linkedin']
@@ -260,7 +260,7 @@ def change_account_jp(request):
         uid  = User.objects.get(email =  request.session['email'])
         if uid.role == "jobprovider" :
             jpid = Jobprovider.objects.get(user_id=uid)
-            js_details = Jobskeer_details.objects.get(jobseeker_id=jsid)
+            js_details = Jobseeker_details.objects.get(jobseeker_id=jsid)
             if request.POST:
                 jpid.country= request.POST['country']
                 jpid.linked_in =request.POST['linkedin']
@@ -280,7 +280,7 @@ def job_apply(request,id):
         uid  = User.objects.get(email =  request.session['email'])
         if uid.role == "jobseeker" :
             jsid = Jobseeker.objects.get(user_id=uid)
-            js_details = Jobskeer_details.objects.get(jobseeker_id=jsid)
+            js_details = Jobseeker_details.objects.get(jobseeker_id=jsid)
             job_post_id= Jobpost.objects.get(id = id)
             print("=========================>jobpost id",job_post_id)
             print("==========>id",id)
@@ -293,7 +293,7 @@ def change_password_js(request):
         uid  = User.objects.get(email =  request.session['email'])
         if uid.role == "jobseeker" :
             jsid = Jobseeker.objects.get(user_id=uid)
-            js_details = Jobskeer_details.objects.get(jobseeker_id=jsid)
+            js_details = Jobseeker_details.objects.get(jobseeker_id=jsid)
             if request.POST:
                 currentpassword = request.POST['currentpassword']
                 newpassword = request.POST['newpassword']

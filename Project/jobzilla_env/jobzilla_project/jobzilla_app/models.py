@@ -44,7 +44,7 @@ class Jobprovider(models.Model):
     def __str__(self):
         return self.company_name
 
-class Jobskeer_details(models.Model):
+class Jobseeker_details(models.Model):
     user_id = models.ForeignKey(User,on_delete=models.CASCADE)
     jobseeker_id =  models.ForeignKey(Jobseeker, on_delete = models.CASCADE)
     skills = models.TextField(blank=True,null=True)
@@ -65,7 +65,7 @@ class Jobpost(models.Model):
      job_category = models.CharField(max_length=50)  
      salary =  models.CharField(max_length=50) 
      skills = models.CharField(max_length=80) 
-     created_at = models.DateTimeField(auto_now_add=True)
+     #created_at = models.DateTimeField(auto_now_add=True)
 
      def __str__(self):
         return self.jobprovider_id.company_name
@@ -73,7 +73,7 @@ class Jobpost(models.Model):
 class Jobapply(models.Model):
      user_id = models.ForeignKey(User, on_delete=models.CASCADE)
      jobseeker_id =  models.ForeignKey(Jobseeker,on_delete = models.CASCADE)
-     jobseeker_details_id  =  models.ForeignKey(Jobskeer_details, on_delete = models.CASCADE)
+     jobseeker_details_id  =  models.ForeignKey(Jobseeker_details, on_delete = models.CASCADE)
      jobpost_id  = models.ForeignKey(Jobpost, on_delete=models.CASCADE )  
      status =  models.CharField(max_length=50 , default = "PENDING")
      
